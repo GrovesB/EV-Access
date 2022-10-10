@@ -1,30 +1,37 @@
-from flask import Flask, render_template, redirect
-
+from flask import Flask, render_template, jsonify
+import json
 
 # Create an instance of Flask
 app = Flask(__name__)
 
-# Use PyMongo to establish Mongo connection
-# conn = "mongodb://localhost:27017/mars_app"
-# mongo = PyMongo(app, uri = conn)
-
-# Route to render index.html template using data from Mongo
+# Route to render index.html
 @app.route("/")
 def home():
-
-    # Find one record of data from the mongo database
-    # mars_data = mongo.db.collection.find_one()
 
     # Return template and data
     return render_template("index.html")
 
 
-# Route that will trigger the scrape function
+# Route that will plot the map
 @app.route("/map")
 def map():
 
     return render_template("map.html")
 
+
+# Route that will stor the range json
+@app.route("/data/<filename>")
+def data(filename):
+    
+    filepath = f"Data/{filename}"
+    try:
+        with open(filepath) as f:
+            json_data = json.load(f)
+    except:
+        json_data = {'Error' : f'{filename} not found on server'}
+
+
+    return jsonify(json_data)
 
 if __name__ == "__main__":
     app.run(debug=True)
