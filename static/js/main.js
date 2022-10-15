@@ -4,6 +4,7 @@
 
     const rangeData = "ev-ranges";
 
+
     function init() {
         
         // Initializes the page with a default bar plot
@@ -13,7 +14,19 @@
     
     // Call the initialization
     init();
-     
+    
+    // Creates call to slider
+    $("#years").slider({});
+    
+    // Create action event listener
+    $("#years").on('slide', function (range) {
+    let timeString = $('#years').val();
+    let timeArray = timeString.split(',');
+    let yMin = timeArray[0];
+    let yMax = timeArray[1];
+    rangePlot(yMin,yMax);
+    });
+
     // Use plotly maps with JSON data to make a horizontal bar graph of top 10 cultures
     function rangePlot(yearMin = 2010, yearMax = 2021) {
         d3.json(rangeData).then(function(data) {
@@ -36,6 +49,8 @@
        
             let plotSample = ranges.slice(minYearIndex,maxYearIndex+1);
             console.log("yearsPlot: ", plotSample);
+
+            // splitting the data into separate plotting variables
             let  plotYears = [];
             let  plotAvgRange = [];
             let  plotMaxRange = [];
@@ -73,3 +88,5 @@
 
         });
     }
+   
+    
