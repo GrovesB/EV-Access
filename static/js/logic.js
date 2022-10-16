@@ -3,8 +3,14 @@ const chargingStations = 'ev-stations';
 
 
 function mapStations(yearMin = 1970, yearMax = 2022) {
+  //let years = `<${yearMin},${yearMax}>`;
+  
+  
   d3.json(chargingStations).then(function(data) {
     console.log("map stations",data);
+
+    let stations = data.data;
+
 
     // define tile layers.
     let streetmap = L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
@@ -20,8 +26,8 @@ function mapStations(yearMin = 1970, yearMax = 2022) {
   
     // Create the map with layers
     let map = L.map("map", {
-      center: [40.73, -74.0059],
-      zoom: 12,
+      center: [40.73, -118.0059],
+      zoom: 5,
       layers: [
         layers.TYPE_1,
         layers.TYPE_2,
@@ -39,6 +45,9 @@ function mapStations(yearMin = 1970, yearMax = 2022) {
       "EV DC Fast Chargers": layers.DC_FAST
     };
 
+    // Create a new marker cluster group.
+    let newMarker = L.markerClusterGroup(); 
+
     // Create a control for our layers, and add our overlays to it.
     L.control.layers(null, overlays).addTo(map);
     // Arrays that will store the created charging station Markers by charging type
@@ -46,27 +55,27 @@ function mapStations(yearMin = 1970, yearMax = 2022) {
 
     for (let i = 0; i < stations.length; i++) {
       // loop through the data array, create a new marker, and push it to the appropriate layer (note a station may have more than one type)
-      if( (stations[i][12] >= yearMin) && (stations[i][12] <= yearMax)){
-        if(stations[i][5]>0){
-          chargerType = 'TYPE_1';
-        }
-        if(stations[i][6]>0){
-          chargerType = 'TYPE_2';
-        }
-        if(stations[i][7]>0){
-          chargerType = 'DC_FAST';
-        }
-      }
+      let location = [[stations[i][9],stations[i][10]]];
       
-      // Create a new marker with the appropriate icon and coordinates.
-      let newMarker = L.marker([stations[i][9],stations[i][10]]);
+      if( (stations[i][12] >= yearMin) && (stations[i][12] <= yearMax)){
+        if(location){
+          if(stations[i][5]>0){
+            chargerType = 'TYPE_1';
+          }
+          if(stations[i][6]>0){
+            chargerType = 'TYPE_2';
+          }
+          if(stations[i][7]>0){
+            chargerType = 'DC_FAST';
+          }
+          // Create a new marker with the appropriate icon and coordinates.
+          newMarker.addLayer( L.marker([stations[i][9],stations[i][10]]) )
+          .bindPopup("<h3>" + stations[i][0] + "</h3><br><p>" + stations[i][1] + "<br>" + stations[i][2] + ", " + stations[i][3] + "<br>" + stations[i][4] + "</p>");
 
-      // Add the new marker to the appropriate layer.
-      newMarker.addTo(layers[chargerType]);
-
-      // Bind a popup to the marker that will  display on being clicked. This will be rendered as HTML.
-      newMarker.bindPopup("<h1>" + stations[i][0] + "</h1><br><p>" + stations[i][1] + "</p><br><p>" + stations[i][2] + ", " + stations[i][3] + "<br>" + stations[i][4]);
-            
+          // Add the new marker to the appropriate layer.
+          newMarker.addTo(layers[chargerType]);
+        }        
+      }            
     }    
   });
 }
