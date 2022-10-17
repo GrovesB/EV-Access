@@ -1,6 +1,6 @@
 from flask import Flask, render_template, jsonify
 from flask_pymongo import PyMongo
-import json
+# import json
 import ev_ranges, ev_stations, ev_sales, station_counts
 
 # Create an instance of Flask

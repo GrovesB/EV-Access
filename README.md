@@ -1,10 +1,11 @@
-# Project-3
+# EV Access
 
 ### Produced by:
+* Arnold Schultz
 * Bryan Groves
 * Randy Lam
 * Rafael Lewis
-* Arnold Schultz
+
 
 # Overview:
 This is a Dashboard that shows the location of electric vehicle charging stations around the U.S. by type and when it was in place.  You will be able to see how the number of charging stations have grown over the years.  There are also two plots showing the growth in the electric vehicle sales over time and how the ranges have improved as well.
@@ -30,16 +31,14 @@ The database has the following schema:
 
 # Instructions required to run on your own system
 
-1. Clone the Repo: 
-1. Open ``pgAdmin`` ``PostgreSQL``
-1. Create a new database named ``ev_db``.
-1. Use the ``ev_DB_Table_Create.sql`` file to create the tables.
-1. Run the next line in an environment that has ``pandas``, ``sqlalchemy``, ``numpy`` and using ``python 3.8``
-1. Run ``jupyter notebook`` and open ``ev.ipynb``.
-1. Verify and update as needed the ``username``, ``port`` and ``password`` in the ``LOAD`` section of the notebook to match your PostgreSQL credentials.
-1. Run the notebook.
-1. Now go to the repo directory where app.py is located and 
+1. Clone the Repo:
+1. Run in an environment that has ``pandas``, ``flask``, ``flask_pymongo`` and uses ``python 3.8``
+1. Ensure the Repo is in the directory where you will run the server and run app.py to start the server
 
 
 # References
 
+1.  https://github.com/domilab/flask-demo,  Instructor Dominic LaBella demo page for mongodb calls
+1.  https://umn.bootcampcontent.com/University-of-Minnesota-Boot-Camp/UofM-VIRT-DATA-PT-06-2022-U-LOLC/-/tree/main/01-Lesson-Plans/15-Mapping-Web/2/Activities/03-Stu_MarkerClusters,  For use of marker clusters.
+1.  https://seiyria.com/bootstrap-slider/, For use of the bootstrap-slider and JQuery CDN
+1. Stack overflow, various tips

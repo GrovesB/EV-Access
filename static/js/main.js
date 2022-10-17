@@ -167,26 +167,31 @@
                 plotSales.push(plotSample[i][1]);
             }
 
-            let plot1 = {
-            type : 'bar',
-            name : 'Station Counts',
-            x: plotYears,
-            y: plotStationCounts,     
+            let plot1 = { 
+              type: "scatter",
+              mode: "lines",
+              name : 'Station Counts',
+              fill: 'tozeroy',
+              line: {color: 'darkgrey'},
+              x: plotYears,
+              y: plotStationCounts,     
             };
 
             let plot2 = {
-                type : 'bar',
-                name : 'EV Sales',
-                yaxis: 'y2',
-                x: plotYears,
-                y: plotSales,     
+              type: "scatter",
+              mode: "lines",
+              name: 'EV Sales',
+              fill: 'tozeroy',
+              line: {color: 'lightblue'},
+              x: plotYears,
+              y: plotSales,     
             };
 
             let trace = [plot1, plot2];
 
             let layout = {
                 title : {
-                    text: "<br><b>Average and Maximum Ranges for EVs by Year</b>",
+                    text: "<br><b>Number of EV Stations and EV Sales by Year</b>",
                     font: {
                         family: 'Courier New',
                         size: 18,
